@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Conversor de Medidas</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+	<style>
+		
+		body{
+			background: linear-gradient(13deg ,#07028a, #050259, #0439D9, #05C7F2, #05F2DB );;
+			height: 1000px;
+			font-family: 'Orbitron', sans-serif;
+		}
+
+		.container {
+			margin-top: 50px;
+		}
+		.form-group {
+			margin-bottom: 20px;
+		}
+		.resultado {
+			font-size: 24px;
+			font-weight: bold;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Conversor de Medidas</h1>
+		<form>
+			
+			<div class="form-group">
+				<label for="valor">Valor :</label>
+				<input type="number" class="form-control" id="valor" placeholder="Digite o valor">
+			</div>
+			<div class="form-group">
+				<label for="unidadeOrigem">Unidade de Origem :</label>
+				<select class="form-control" id="unidadeOrigem">
+					<option value="metro">Metro</option>
+					<option value="quilo">Quilograma</option>
+					<option value="celcius">Graus Celsius</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label for="unidadeDestino">Unidade de Destino :</label>
+				<select class="form-control" id="unidadeDestino">
+					<option value="pes">Pé</option>
+					<option value="libra">Libra</option>
+					<option value="fahrenheit">Graus Fahrenheit</option>
+				</select>
+			</div>
+			<button type="button" class="btn btn-primary" onclick="converter()">Converter</button>
+		</form>
+		<div class="resultado"></div>
+	</div>
+
+	<script>
+		function converter() {
+			const valor = document.getElementById('valor').value;
+			const unidadeOrigem = document.getElementById('unidadeOrigem').value;
+			const unidadeDestino = document.getElementById('unidadeDestino').value;
+			let resultado;
+
+			switch (unidadeOrigem) {
+				case 'metro':
+					if (unidadeDestino === 'pes') {
+						resultado = valor * 3.28084;
+					}
+					break;
+				case 'quilo':
+					if (unidadeDestino === 'libra') {
+						resultado = valor * 2.20462;
+					}
+					break;
+				case 'celcius':
+					if (unidadeDestino === 'fahrenheit') {
+						resultado = (valor * 1.8) + 32;
+					}
+					break;
+				default:
+					resultado = 'Unidades inválidas';
+					break;
+			}
+
+			if (isNaN(resultado)) {
+				document.querySelector('.resultado').innerHTML = resultado;
+			} else {
+				document.querySelector('.resultado').innerHTML = `${valor} ${unidadeOrigem} = ${resultado.toFixed(2)} ${unidadeDestino}`;
+			}
+		}
+	</script>
+	
+</body>
+</html>
